@@ -106,6 +106,9 @@ export default async function DashboardPage() {
         <p>
           Next set <Link href="/budgets">monthly budgets</Link>.
         </p>
+        <p>
+          Finally review <Link href="/alerts">smart alerts</Link>.
+        </p>
         <SignOutButton />
       </section>
     </main>

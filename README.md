@@ -84,6 +84,26 @@ Budget updates are handled via:
 - `POST /api/budgets`
 - Endpoint validates auth and category ownership before upsert
 
+## Alerts (current status)
+
+Alerts are now available at `/alerts` (protected).
+
+Current capabilities:
+- Runs anomaly + recurring detection from persisted user transactions
+- Syncs generated detection alerts into `Alert` records (metadata-tagged)
+- Displays two alert sections in the UI:
+  - Anomaly alerts (persisted and shown with severity)
+  - Recurring detections (persisted and shown with severity)
+
+Implementation:
+- Alert generation engine: @lib/alerts-engine.ts
+- Alert sync/persistence: @lib/alerts-sync.ts
+- Alerts page UI: @app/alerts/page.tsx
+- Middleware protection includes `/alerts/:path*`: @middleware.ts
+
+Unit tests:
+- Alerts generation tests: @lib/alerts-engine.test.ts
+
 ## Detection
 
 ### Anomaly detection
