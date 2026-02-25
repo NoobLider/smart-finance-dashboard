@@ -1,0 +1,11 @@
+date,amount,merchant,description,type,category
+2026-02-01,-1200.00,Rent Payment,Monthly rent,expense,Housing
+2026-02-03,-85.50,Whole Foods,Weekly groceries,expense,Food & Dining
+2026-02-05,3200.00,Employer Inc,Monthly salary,income,Income
+2026-02-07,-12.99,Netflix,Monthly subscription,expense,Subscriptions
+2026-02-10,-45.00,Shell Gas Station,Fuel,expense,Transport
+2026-02-12,-32.00,Corner Cafe,Lunch with team,expense,Food & Dining
+2026-02-14,-78.00,City Electric,Electric bill,expense,Utilities
+2026-02-18,-24.50,Metro Pass,Monthly transit pass,expense,Transport
+2026-02-20,-210.00,Steakhouse 48,Anniversary dinner,expense,Food & Dining
+2026-02-22,500.00,Freelance Client,Project payment,income,Income
