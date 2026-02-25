@@ -13,5 +13,6 @@ export const config = {
     "/transactions/:path*",
     "/budgets/:path*",
     "/alerts/:path*",
+    "/accounts/:path*",
   ],
 };

@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 
 import { authOptions } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
-import { UploadForm } from "./upload-form";
+import { AccountsManager } from "./accounts-manager";
 
-export default async function UploadPage() {
+export default async function AccountsPage() {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
@@ -24,29 +24,24 @@ export default async function UploadPage() {
     select: {
       id: true,
       name: true,
+      type: true,
     },
   });
 
   return (
     <main className="page">
-      <section className="card auth-card">
-        <h1>CSV Upload</h1>
-        <p>Upload a statement CSV and import transactions into the selected account.</p>
+      <section className="card transactions-card">
+        <h1>Accounts</h1>
+        <p>Manage account names, account types, and archive accounts while keeping historical transactions.</p>
+
         <p>
-          Need a template?{" "}
-          <a href="/sample-transactions.csv" download>
-            Download sample CSV
-          </a>
+          <Link href="/accounts/new">Create account</Link>
         </p>
 
-        {accounts.length === 0 ? (
-          <p className="form-error">No active accounts found. Seed data or create an account first.</p>
-        ) : (
-          <UploadForm accounts={accounts} />
-        )}
+        <AccountsManager accounts={accounts} />
 
         <p>
-          Back to <Link href="/dashboard">dashboard</Link>
+          <Link href="/dashboard">Back to dashboard</Link> · <Link href="/upload">CSV upload</Link>
         </p>
       </section>
     </main>

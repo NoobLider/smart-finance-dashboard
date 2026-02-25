@@ -324,3 +324,41 @@ ul {
   color: #1e3a8a;
   background: #dbeafe;
 }
+
+.account-actions {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.account-actions button {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 0.35rem 0.6rem;
+  font: inherit;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.mode-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+}
+
+.mode-button {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 0.55rem 0.75rem;
+  font: inherit;
+  font-weight: 600;
+  color: #1e293b;
+  background: #f8fafc;
+  cursor: pointer;
+}
+
+.mode-button.active {
+  border-color: #1d4ed8;
+  color: #1d4ed8;
+  background: #dbeafe;
+}

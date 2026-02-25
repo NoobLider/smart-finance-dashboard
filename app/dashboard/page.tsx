@@ -101,6 +101,9 @@ export default async function DashboardPage() {
           Continue to <Link href="/upload">CSV upload</Link>.
         </p>
         <p>
+          Manage <Link href="/accounts">accounts</Link>.
+        </p>
+        <p>
           Then open <Link href="/transactions">transaction list</Link>.
         </p>
         <p>
