@@ -58,6 +58,19 @@ Category updates are handled via:
 - `PATCH /api/transactions/[transactionId]/category`
 - Ownership checks ensure users can update only their own transactions/categories
 
+## Dashboard Analytics (current status)
+
+Dashboard analytics are now available on `/dashboard`:
+
+- Total income and total expense computed from persisted transactions
+- Net value (income minus expense)
+- 6-month expense trend (current month included)
+- Current-month expense category breakdown (amount-based)
+
+Implementation:
+- Aggregation logic: @lib/dashboard-analytics.ts
+- Dashboard UI: @app/dashboard/page.tsx
+
 ## Detection
 
 ### Anomaly detection
