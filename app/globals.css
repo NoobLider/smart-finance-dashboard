@@ -240,3 +240,41 @@ ul {
   border-radius: 10px;
   background: #ffffff;
 }
+
+.budget-input-row {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.budget-input-row input {
+  width: 120px;
+}
+
+.budget-progress-track {
+  width: 140px;
+  height: 9px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 0.2rem;
+}
+
+.budget-progress-fill {
+  height: 100%;
+  background: #16a34a;
+}
+
+.budget-progress-fill.over {
+  background: #dc2626;
+}
+
+.warning-chip {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #7f1d1d;
+  background: #fee2e2;
+}

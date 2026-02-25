@@ -71,6 +71,19 @@ Implementation:
 - Aggregation logic: @lib/dashboard-analytics.ts
 - Dashboard UI: @app/dashboard/page.tsx
 
+## Budget Tracking (current status)
+
+Budget tracking is now available at `/budgets` (protected).
+
+Current capabilities:
+- Set/update monthly budget amount per category
+- View month-scoped spent amount per category
+- Progress bars and explicit over-budget warnings
+
+Budget updates are handled via:
+- `POST /api/budgets`
+- Endpoint validates auth and category ownership before upsert
+
 ## Detection
 
 ### Anomaly detection

@@ -103,6 +103,9 @@ export default async function DashboardPage() {
         <p>
           Then open <Link href="/transactions">transaction list</Link>.
         </p>
+        <p>
+          Next set <Link href="/budgets">monthly budgets</Link>.
+        </p>
         <SignOutButton />
       </section>
     </main>
