@@ -30,6 +30,8 @@ services:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/smart_finance_dashboard?schema=public
       NODE_ENV: development
       PORT: 3000
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: dev-only-please-change
     ports:
       - "3000:3000"
     volumes:

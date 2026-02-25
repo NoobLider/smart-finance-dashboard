@@ -4,10 +4,12 @@ import {
   PrismaClient,
   TransactionType,
 } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 const DEMO_USER_EMAIL = "demo@smartfinance.local";
+const DEMO_USER_PASSWORD = "demo12345";
 const MONTH_WINDOW = 6;
 
 const SYSTEM_CATEGORIES = [
@@ -43,6 +45,8 @@ function money(value: number): Prisma.Decimal {
 }
 
 async function main(): Promise<void> {
+  const demoPasswordHash = await bcrypt.hash(DEMO_USER_PASSWORD, 12);
+
   // Keep seed idempotent for iterative demo prep, scoped to demo user only.
   const existingDemoUser = await prisma.user.findUnique({
     where: { email: DEMO_USER_EMAIL },
@@ -68,7 +72,7 @@ async function main(): Promise<void> {
   const user = await prisma.user.create({
     data: {
       email: DEMO_USER_EMAIL,
-      passwordHash: "demo-hash-change-me",
+      passwordHash: demoPasswordHash,
     },
   });
 
