@@ -1,0 +1,7 @@
+node_modules
+.next
+.git
+*.log
+*.exit
+.env
+prisma/migrations/migration_lock.toml

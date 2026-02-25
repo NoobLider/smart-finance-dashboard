@@ -1,0 +1,174 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AccountType {
+  CHECKING
+  CREDIT_CARD
+  SAVINGS
+}
+
+enum UploadJobStatus {
+  PENDING
+  COMPLETE
+  FAILED
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+enum AlertType {
+  ANOMALY
+  BUDGET_WARNING
+}
+
+enum AlertSeverity {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model User {
+  id           String      @id @default(cuid())
+  email        String      @unique
+  passwordHash String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  accounts   Account[]
+  categories Category[]
+  budgets    Budget[]
+  uploadJobs UploadJob[]
+  alerts     Alert[]
+}
+
+model Account {
+  id        String      @id @default(cuid())
+  userId    String
+  name      String
+  type      AccountType
+  currency  String      @default("USD")
+  isArchived Boolean    @default(false)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  uploadJobs   UploadJob[]
+  alerts       Alert[]
+
+  @@index([userId])
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  userId    String
+  name      String
+  // API-layer guard required: system categories must not be user-deletable.
+  isSystem  Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  budgets      Budget[]
+
+  @@unique([userId, name])
+  @@index([userId])
+}
+
+model Transaction {
+  id           String          @id @default(cuid())
+  accountId    String
+  // Nullable at import-time; Restrict on relation protects assigned-category references.
+  categoryId   String?
+  uploadJobId  String?
+  date         DateTime
+  amount       Decimal         @db.Decimal(14, 2)
+  merchant     String
+  description  String?
+  type         TransactionType
+  isManualEntry Boolean        @default(false)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  account    Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  uploadJob  UploadJob? @relation(fields: [uploadJobId], references: [id], onDelete: SetNull)
+  alerts     Alert[]
+
+  @@index([accountId, date])
+  @@index([merchant])
+  @@index([categoryId])
+  @@index([uploadJobId])
+}
+
+model Budget {
+  id         String    @id @default(cuid())
+  userId     String
+  categoryId String
+  monthStart DateTime
+  amount     Decimal   @db.Decimal(14, 2)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  alerts   Alert[]
+
+  @@unique([userId, categoryId, monthStart])
+  @@index([userId, monthStart])
+}
+
+model UploadJob {
+  id           String          @id @default(cuid())
+  userId       String
+  accountId    String
+  fileName     String
+  status       UploadJobStatus @default(PENDING)
+  errorMessage String?
+  completedAt  DateTime?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  account      Account       @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@index([userId])
+  @@index([accountId])
+  @@index([status])
+}
+
+model Alert {
+  id            String        @id @default(cuid())
+  userId        String
+  accountId     String?
+  budgetId      String?
+  transactionId String?
+  type          AlertType
+  severity      AlertSeverity @default(MEDIUM)
+  title         String
+  message       String
+  metadata      Json?
+  isRead        Boolean       @default(false)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  account     Account?     @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  budget      Budget?      @relation(fields: [budgetId], references: [id], onDelete: SetNull)
+  transaction Transaction? @relation(fields: [transactionId], references: [id], onDelete: SetNull)
+
+  @@index([userId, isRead])
+  @@index([accountId, type])
+  @@index([budgetId])
+  @@index([transactionId])
+}

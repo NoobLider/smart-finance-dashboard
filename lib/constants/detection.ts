@@ -1,0 +1,4 @@
+export const RECURRING_AMOUNT_TOLERANCE = 0.10;
+export const RECURRING_MIN_DISTINCT_MONTHS = 2;
+export const ANOMALY_MIN_SAMPLE_SIZE = 4;
+export const ANOMALY_METHOD = "IQR";

@@ -1,0 +1,13 @@
+# Debug artifacts
+*.log
+*.exit
+
+# Environment
+.env
+
+# Dependencies
+node_modules/
+
+# Prisma
+# Keep migration_lock.toml and SQL migrations tracked for portfolio schema history.
+.next
