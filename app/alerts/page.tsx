@@ -56,15 +56,20 @@ export default async function AlertsPage() {
             <p>No recurring patterns detected yet.</p>
           ) : (
             <ul className="alerts-list">
-              {data.recurringAlerts.map((alert) => (
-                <li key={alert.message} className="alert-item">
-                  <div className="alert-head">
-                    <strong>{alert.title}</strong>
-                    <span className={severityClassName(alert.severity)}>{alert.severity}</span>
-                  </div>
-                  <p>{alert.message}</p>
-                </li>
-              ))}
+              {data.recurringAlerts.map((alert, index) => {
+                const merchant =
+                  typeof alert.metadata.merchant === "string" ? alert.metadata.merchant : "recurring";
+
+                return (
+                  <li key={`${merchant}-${index}`} className="alert-item">
+                    <div className="alert-head">
+                      <strong>{alert.title}</strong>
+                      <span className={severityClassName(alert.severity)}>{alert.severity}</span>
+                    </div>
+                    <p>{alert.message}</p>
+                  </li>
+                );
+              })}
             </ul>
           )}
         </section>

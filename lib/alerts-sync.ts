@@ -49,24 +49,11 @@ export async function syncAlertsForUser(userId: string): Promise<SyncedAlertData
   const recurringAlerts = generated.filter((alert) => alert.kind === "recurring");
 
   await prisma.$transaction(async (tx) => {
+    // MVP note: replace-on-sync resets isRead because rows are recreated.
     await tx.alert.deleteMany({
       where: {
         userId,
         type: AlertType.ANOMALY,
-        OR: [
-          {
-            metadata: {
-              path: ["detectionKind"],
-              equals: "anomaly",
-            },
-          },
-          {
-            metadata: {
-              path: ["detectionKind"],
-              equals: "recurring",
-            },
-          },
-        ],
       },
     });
 
