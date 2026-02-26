@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -19,10 +18,6 @@ export default async function NewAccountPage() {
         <p>Choose basic mode for account-only creation, or extended mode to optionally import CSV data.</p>
 
         <NewAccountForm />
-
-        <p>
-          <Link href="/accounts">Back to accounts</Link> · <Link href="/dashboard">Dashboard</Link>
-        </p>
       </section>
     </main>
   );

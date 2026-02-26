@@ -25,6 +25,11 @@ export default async function AccountsPage() {
       id: true,
       name: true,
       type: true,
+      _count: {
+        select: {
+          transactions: true,
+        },
+      },
     },
   });
 
@@ -34,15 +39,11 @@ export default async function AccountsPage() {
         <h1>Accounts</h1>
         <p>Manage account names, account types, and archive accounts while keeping historical transactions.</p>
 
-        <p>
-          <Link href="/accounts/new">Create account</Link>
-        </p>
+        <Link href="/accounts/new" className="button-link">
+          Create account
+        </Link>
 
         <AccountsManager accounts={accounts} />
-
-        <p>
-          <Link href="/dashboard">Back to dashboard</Link> · <Link href="/upload">CSV upload</Link>
-        </p>
       </section>
     </main>
   );

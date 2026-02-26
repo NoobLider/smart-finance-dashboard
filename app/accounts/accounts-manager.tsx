@@ -1,6 +1,7 @@
 "use client";
 
 import { AccountType } from "@prisma/client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -9,6 +10,9 @@ interface AccountsManagerProps {
     id: string;
     name: string;
     type: AccountType;
+    _count: {
+      transactions: number;
+    };
   }>;
 }
 
@@ -21,6 +25,17 @@ const ACCOUNT_TYPES: AccountType[] = ["CHECKING", "CREDIT_CARD", "SAVINGS"];
 
 function formatAccountType(value: AccountType): string {
   return value.toLowerCase().replaceAll("_", " ");
+}
+
+function accountTypeBadgeClass(type: AccountType): string {
+  switch (type) {
+    case "CHECKING":
+      return "type-badge checking";
+    case "CREDIT_CARD":
+      return "type-badge credit";
+    default:
+      return "type-badge savings";
+  }
 }
 
 export function AccountsManager({ accounts }: AccountsManagerProps) {
@@ -99,6 +114,7 @@ export function AccountsManager({ accounts }: AccountsManagerProps) {
           <tr>
             <th>Name</th>
             <th>Type</th>
+            <th>Transactions</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -139,9 +155,10 @@ export function AccountsManager({ accounts }: AccountsManagerProps) {
                       ))}
                     </select>
                   ) : (
-                    formatAccountType(account.type)
+                    <span className={accountTypeBadgeClass(account.type)}>{formatAccountType(account.type)}</span>
                   )}
                 </td>
+                <td>{account._count.transactions}</td>
                 <td>
                   <div className="account-actions">
                     {isEditing ? (
@@ -169,6 +186,9 @@ export function AccountsManager({ accounts }: AccountsManagerProps) {
                       </>
                     ) : (
                       <>
+                        <Link href={`/transactions?accountId=${account.id}`} className="button-link">
+                          View transactions
+                        </Link>
                         <button
                           type="button"
                           onClick={() => {

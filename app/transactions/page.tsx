@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { TransactionType } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -179,10 +178,6 @@ export default async function TransactionsPage({ searchParams }: TransactionPage
             </tbody>
           </table>
         </div>
-
-        <p>
-          <Link href="/upload">Upload more CSV</Link> · <Link href="/dashboard">Back to dashboard</Link>
-        </p>
       </section>
     </main>
   );

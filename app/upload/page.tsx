@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -44,10 +43,6 @@ export default async function UploadPage() {
         ) : (
           <UploadForm accounts={accounts} />
         )}
-
-        <p>
-          Back to <Link href="/dashboard">dashboard</Link>
-        </p>
       </section>
     </main>
   );

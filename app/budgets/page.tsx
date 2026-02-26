@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { TransactionType } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -86,10 +85,6 @@ export default async function BudgetsPage({ searchParams }: BudgetsPageProps) {
         </form>
 
         <BudgetEditor monthKey={selectedMonthKey} rows={rows} />
-
-        <p>
-          <Link href="/dashboard">Back to dashboard</Link> · <Link href="/transactions">Transactions</Link>
-        </p>
       </section>
     </main>
   );

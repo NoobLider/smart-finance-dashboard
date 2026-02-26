@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -73,10 +72,6 @@ export default async function AlertsPage() {
             </ul>
           )}
         </section>
-
-        <p>
-          <Link href="/dashboard">Back to dashboard</Link> · <Link href="/budgets">Budgets</Link>
-        </p>
       </section>
     </main>
   );

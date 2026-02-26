@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -97,21 +96,6 @@ export default async function DashboardPage() {
           )}
         </section>
 
-        <p>
-          Continue to <Link href="/upload">CSV upload</Link>.
-        </p>
-        <p>
-          Manage <Link href="/accounts">accounts</Link>.
-        </p>
-        <p>
-          Then open <Link href="/transactions">transaction list</Link>.
-        </p>
-        <p>
-          Next set <Link href="/budgets">monthly budgets</Link>.
-        </p>
-        <p>
-          Finally review <Link href="/alerts">smart alerts</Link>.
-        </p>
         <SignOutButton />
       </section>
     </main>

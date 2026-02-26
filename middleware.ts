@@ -14,5 +14,6 @@ export const config = {
     "/budgets/:path*",
     "/alerts/:path*",
     "/accounts/:path*",
+    "/settings/:path*",
   ],
 };
